@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.manager;
@@ -10,7 +10,7 @@ using System.Configuration;
 namespace MediaTekDocuments.dal
 {
     /// <summary>
-    /// Classe d'accès aux données
+    /// Classe d'accÃ¨s aux donnÃ©es
     /// </summary>
     public class Access
     {
@@ -23,23 +23,23 @@ namespace MediaTekDocuments.dal
         /// </summary>
         private static Access instance = null;
         /// <summary>
-        /// instance de ApiRest pour envoyer des demandes vers l'api et recevoir la réponse
+        /// instance de ApiRest pour envoyer des demandes vers l'api et recevoir la rÃ©ponse
         /// </summary>
         private readonly ApiRest api = null;
         /// <summary>
-        /// méthode HTTP pour select
+        /// mÃ©thode HTTP pour select
         /// </summary>
         private const string GET = "GET";
         /// <summary>
-        /// méthode HTTP pour insert
+        /// mÃ©thode HTTP pour insert
         /// </summary>
         private const string POST = "POST";
         /// <summary>
-        /// méthode HTTP pour update
+        /// mÃ©thode HTTP pour update
 
         /// <summary>
-        /// Méthode privée pour créer un singleton
-        /// initialise l'accès à l'API
+        /// MÃ©thode privÃ©e pour crÃ©er un singleton
+        /// initialise l'accÃ¨s Ã  l'API
         /// </summary>
         private Access()
         {
@@ -57,12 +57,12 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Création et retour de l'instance unique de la classe
+        /// CrÃ©ation et retour de l'instance unique de la classe
         /// </summary>
         /// <returns>instance unique de la classe</returns>
         public static Access GetInstance()
         {
-            if (instance == null)
+            if(instance == null)
             {
                 instance = new Access();
             }
@@ -70,7 +70,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne tous les genres à partir de la BDD
+        /// Retourne tous les genres Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Genre</returns>
         public List<Categorie> GetAllGenres()
@@ -80,7 +80,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne tous les rayons à partir de la BDD
+        /// Retourne tous les rayons Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Rayon</returns>
         public List<Categorie> GetAllRayons()
@@ -90,7 +90,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne toutes les catégories de public à partir de la BDD
+        /// Retourne toutes les catÃ©gories de public Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Public</returns>
         public List<Categorie> GetAllPublics()
@@ -100,7 +100,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne toutes les livres à partir de la BDD
+        /// Retourne toutes les livres Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Livre</returns>
         public List<Livre> GetAllLivres()
@@ -110,7 +110,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne toutes les dvd à partir de la BDD
+        /// Retourne toutes les dvd Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Dvd</returns>
         public List<Dvd> GetAllDvd()
@@ -120,7 +120,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Retourne toutes les revues à partir de la BDD
+        /// Retourne toutes les revues Ã  partir de la BDD
         /// </summary>
         /// <returns>Liste d'objets Revue</returns>
         public List<Revue> GetAllRevues()
@@ -133,7 +133,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Retourne les exemplaires d'une revue
         /// </summary>
-        /// <param name="idDocument">id de la revue concernée</param>
+        /// <param name="idDocument">id de la revue concernÃ©e</param>
         /// <returns>Liste d'objets Exemplaire</returns>
         public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
@@ -143,16 +143,15 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// ecriture d'un exemplaire en base de données
+        /// ecriture d'un exemplaire en base de donnÃ©es
         /// </summary>
-        /// <param name="exemplaire">exemplaire à insérer</param>
+        /// <param name="exemplaire">exemplaire Ã  insÃ©rer</param>
         /// <returns>true si l'insertion a pu se faire (retour != null)</returns>
         public bool CreerExemplaire(Exemplaire exemplaire)
         {
             String jsonExemplaire = JsonConvert.SerializeObject(exemplaire, new CustomDateTimeConverter());
-            try
-            {
-                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+            try {
+                // rÃ©cupÃ©ration soit d'une liste vide (requÃªte ok) soit de null (erreur)
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
                 return (liste != null);
             }
@@ -160,31 +159,31 @@ namespace MediaTekDocuments.dal
             {
                 Console.WriteLine(ex.Message);
             }
-            return false;
+            return false; 
         }
 
         /// <summary>
-        /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
+        /// Traitement de la rÃ©cupÃ©ration du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="methode">verbe HTTP (GET, POST, PUT, DELETE)</param>
-        /// <param name="message">information envoyée</param>
-        /// <returns>liste d'objets récupérés (ou liste vide)</returns>
-        private List<T> TraitementRecup<T>(String methode, String message)
+        /// <param name="message">information envoyÃ©e</param>
+        /// <returns>liste d'objets rÃ©cupÃ©rÃ©s (ou liste vide)</returns>
+        private List<T> TraitementRecup<T> (String methode, String message)
         {
             List<T> liste = new List<T>();
             try
             {
                 JObject retour = api.RecupDistant(methode, message);
-                // extraction du code retourné
+                // extraction du code retournÃ©
                 String code = (String)retour["code"];
                 if (code.Equals("200"))
                 {
-                    // dans le cas du GET (select), récupération de la liste d'objets
+                    // dans le cas du GET (select), rÃ©cupÃ©ration de la liste d'objets
                     if (methode.Equals(GET))
                     {
                         String resultString = JsonConvert.SerializeObject(retour["result"]);
-                        // construction de la liste d'objets à partir du retour de l'api
+                        // construction de la liste d'objets Ã  partir du retour de l'api
                         liste = JsonConvert.DeserializeObject<List<T>>(resultString, new CustomBooleanJsonConverter());
                     }
                 }
@@ -192,10 +191,9 @@ namespace MediaTekDocuments.dal
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
                 }
-            }
-            catch (Exception e)
+            }catch(Exception e)
             {
-                Console.WriteLine("Erreur lors de l'accès à l'API : " + e.Message);
+                Console.WriteLine("Erreur lors de l'accÃ¨s Ã  l'API : "+e.Message);
                 Environment.Exit(0);
             }
             return liste;
@@ -215,7 +213,7 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Modification du convertisseur Json pour gérer le format de date
+        /// Modification du convertisseur Json pour gÃ©rer le format de date
         /// </summary>
         private sealed class CustomDateTimeConverter : IsoDateTimeConverter
         {
@@ -226,8 +224,8 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
-        /// Modification du convertisseur Json pour prendre en compte les booléens
-        /// classe trouvée sur le site :
+        /// Modification du convertisseur Json pour prendre en compte les boolÃ©ens
+        /// classe trouvÃ©e sur le site :
         /// https://www.thecodebuzz.com/newtonsoft-jsonreaderexception-could-not-convert-string-to-boolean/
         /// </summary>
         private sealed class CustomBooleanJsonConverter : JsonConverter<bool>

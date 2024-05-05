@@ -2,6 +2,8 @@
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System;
 
 namespace MediaTekDocuments.controller
 {
